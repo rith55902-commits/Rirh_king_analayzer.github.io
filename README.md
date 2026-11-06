@@ -34,42 +34,6 @@
             transition: all 0.3s ease;
         }
 
-        #authOverlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(9, 13, 22, 0.95);
-            z-index: 9999;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .auth-box {
-            background: var(--panel-bg);
-            border: 1px solid var(--border-color);
-            padding: 25px;
-            border-radius: 12px;
-            width: 360px;
-            text-align: center;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.6);
-        }
-        .auth-box h2 { color: var(--accent-primary); font-size: 20px; margin-bottom: 5px; }
-        .auth-box p { font-size: 11px; color: var(--text-sub); margin-bottom: 20px; }
-        
-        .auth-submit {
-            width: 100%;
-            background: linear-gradient(135deg, #f59e0b, #d97706);
-            color: #000;
-            font-weight: bold;
-            padding: 12px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            text-transform: uppercase;
-            font-size: 12px;
-            transition: 0.2s;
-        }
-        .auth-submit:hover { opacity: 0.9; }
-
         .top-navbar {
             background-color: var(--panel-bg);
             border-bottom: 1px solid var(--border-color);
@@ -371,14 +335,6 @@
 </head>
 <body>
 
-    <div id="authOverlay">
-        <div class="auth-box">
-            <h2>👑 RITH KING TERMINAL</h2>
-            <p>ប្រព័ន្ធវិភាគទីផ្សារហិរញ្ញវត្ថុអាជីព</p>
-            <button class="auth-submit" onclick="enterTerminal()">ចូលប្រព័ន្ធ (Enter Terminal)</button>
-        </div>
-    </div>
-
     <div class="top-navbar">
         <div class="brand-logo">
             <span>👑</span>
@@ -488,4 +444,32 @@
             <div class="panel-card">
                 <div class="panel-header">
                     <span id="txtAiHeader">⚡ AI SIGNAL & TREND METER</span>
-                    <span id="marketBadge" style="font-size:10px; co
+                    <span id="marketBadge" style="font-size:10px; color:var(--accent-cyan);">XAUUSD</span>
+                </div>
+
+                <div class="confluence-grid">
+                    <div class="conf-box" id="tfM15">M15: --</div>
+                    <div class="conf-box" id="tfH1">H1: --</div>
+                    <div class="conf-box" id="tfH4">H4: --</div>
+                </div>
+
+                <div class="signal-box">
+                    <div class="signal-title" id="signalStatus">ត្រៀមវិភាគ...</div>
+                    <div class="signal-confidence" id="signalConfidence">ចុចវិភាគ ឬបើក Auto-Scan 24/7</div>
+                </div>
+
+                <div class="metrics-grid">
+                    <div class="metric-item">
+                        <div class="metric-label" id="txtEntry">Entry Price</div>
+                        <div class="metric-value" id="entryVal">--</div>
+                    </div>
+                    <div class="metric-item sl">
+                        <div class="metric-label" id="txtSL">Stop Loss (SL)</div>
+                        <div class="metric-value" id="slVal" style="color:var(--red-signal);">--</div>
+                    </div>
+                </div>
+
+                <div class="tp-list">
+                    <div class="tp-item"><span>TP1</span><strong id="tp1Val" style="color:var(--green-signal);">--</strong></div>
+                    <div class="tp-item"><span>TP2</span><strong id="tp2Val" style="color:var(--green-signal);">--</strong></div>
+                    <div class="tp-item"><span>TP3</spa
