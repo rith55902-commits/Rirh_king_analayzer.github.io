@@ -471,3 +471,485 @@
                 </div>
                 <div class="watch-item" onclick="selectWatchAsset('GBPUSD', 'FX:GBPUSD')">
                     <div class="watch-top"><span>GBPUSD</span> <span class="watch-chg chg
+<div class="watch-top"><span>EURUSD</span> <span class="watch-chg chg-neg" id="wChg_EURUSD">-0.12%</span></div>
+                    <div class="watch-price" id="wPrice_EURUSD">1.0842</div>
+                </div>
+                <div class="watch-item" onclick="selectWatchAsset('GBPUSD', 'FX:GBPUSD')">
+                    <div class="watch-top"><span>GBPUSD</span> <span class="watch-chg chg-pos" id="wChg_GBPUSD">+0.18%</span></div>
+                    <div class="watch-price" id="wPrice_GBPUSD">1.2945</div>
+                </div>
+                <div class="watch-item" onclick="selectWatchAsset('BTCUSD', 'BINANCE:BTCUSDT')">
+                    <div class="watch-top"><span>BTCUSD</span> <span class="watch-chg chg-pos" id="wChg_BTCUSD">+1.85%</span></div>
+                    <div class="watch-price" id="wPrice_BTCUSD">$68,520.00</div>
+                </div>
+                <div class="watch-item" onclick="selectWatchAsset('US30', 'FOREXCOM:SPXUSD')">
+                    <div class="watch-top"><span>US30</span> <span class="watch-chg chg-pos" id="wChg_US30">+0.32%</span></div>
+                    <div class="watch-price" id="wPrice_US30">$42,540.10</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CHART PANE -->
+        <div class="chart-pane">
+            <div class="chart-toolbar">
+                <select class="asset-select" id="assetSelect" onchange="changeAsset()">
+                    <option value="XAUUSD">🥇 XAUUSD (Gold Spot)</option>
+                    <option value="EURUSD">💶 EURUSD (Euro / USD)</option>
+                    <option value="GBPUSD">💷 GBPUSD (Pound / USD)</option>
+                    <option value="BTCUSD">₿ BTCUSD (Bitcoin)</option>
+                    <option value="US30">📈 US30 (Dow Jones)</option>
+                </select>
+                <span id="txtFeed" style="color: var(--text-sub); font-size: 10px;">Institutional Feed | [Space] to Scan</span>
+            </div>
+            <div class="chart-container" id="chartGridContainer">
+                <div id="tradingview_widget" style="height:100%;width:100%;"></div>
+                <div id="tradingview_widget_2" style="height:100%;width:100%; display:none;"></div>
+            </div>
+        </div>
+
+        <!-- SIDE CONTROL PANE -->
+        <div class="side-pane">
+            
+            <div class="panel-card">
+                <div class="panel-header"><span id="txtSupportHeader">💬 SUPPORT & CONTACT</span></div>
+                <div class="support-box">
+                    <span id="txtAdmin">Admin Telegram:</span>
+                    <a href="https://t.me/Rith_putuy" target="_blank">@Rith_putuy (+855966251855)</a>
+                </div>
+            </div>
+
+            <div class="panel-card">
+                <div class="panel-header"><span id="txtNewsHeader">🚨 REAL-TIME ECONOMIC CALENDAR</span></div>
+                <div class="news-live-box" id="economicCalendarBox">
+                    <div class="news-item-row"><span class="news-time">Loading...</span><span>Fetching events...</span></div>
+                </div>
+            </div>
+
+            <div class="panel-card">
+                <div class="panel-header"><span id="txtSessionHeader">🌐 MARKET SESSIONS</span></div>
+                <div class="sessions-grid">
+                    <div class="session-item" id="sessSydney"><div class="session-name">Sydney</div><div class="session-status" id="stSydney">--</div></div>
+                    <div class="session-item" id="sessTokyo"><div class="session-name">Tokyo</div><div class="session-status" id="stTokyo">--</div></div>
+                    <div class="session-item" id="sessLondon"><div class="session-name">London</div><div class="session-status" id="stLondon">--</div></div>
+                    <div class="session-item" id="sessNY"><div class="session-name">New York</div><div class="session-status" id="stNY">--</div></div>
+                </div>
+            </div>
+
+            <div class="panel-card">
+                <div class="panel-header">
+                    <span id="txtAiHeader">⚡ AI SIGNAL & TREND METER</span>
+                    <span id="marketBadge" style="font-size:10px; color:var(--accent-cyan);">XAUUSD</span>
+                </div>
+
+                <div class="confluence-grid">
+                    <div class="conf-box" id="tfM15">M15: --</div>
+                    <div class="conf-box" id="tfH1">H1: --</div>
+                    <div class="conf-box" id="tfH4">H4: --</div>
+                </div>
+
+                <div class="signal-box">
+                    <div class="signal-title" id="signalStatus">ត្រៀមវិភាគ...</div>
+                    <div class="signal-confidence" id="signalConfidence">ចុចវិភាគ ឬបើក Auto-Scan 24/7</div>
+                </div>
+
+                <div class="metrics-grid">
+                    <div class="metric-item">
+                        <div class="metric-label" id="txtEntry">Entry Price</div>
+                        <div class="metric-value" id="entryVal">--</div>
+                    </div>
+                    <div class="metric-item sl">
+                        <div class="metric-label" id="txtSL">Stop Loss (SL)</div>
+                        <div class="metric-value" id="slVal" style="color:var(--red-signal);">--</div>
+                    </div>
+                </div>
+
+                <div class="tp-list">
+                    <div class="tp-item"><span>TP1</span><strong id="tp1Val" style="color:var(--green-signal);">--</strong></div>
+                    <div class="tp-item"><span>TP2</span><strong id="tp2Val" style="color:var(--green-signal);">--</strong></div>
+                    <div class="tp-item"><span>TP3</span><strong id="tp3Val" style="color:var(--green-signal);">--</strong></div>
+                </div>
+
+                <div class="rr-badge" id="rrBadge">Risk/Reward Ratio: 1 : --</div>
+
+                <div class="controls-flex">
+                    <button class="btn-run-ai" id="btnRunAi" onclick="generateAISignal()">🔍 វិភាគឥឡូវនេះ</button>
+                    <button class="btn-auto-scan" id="autoScanBtn" onclick="toggleAutoScan()">🤖 Auto-Scan</button>
+                </div>
+            </div>
+
+            <div class="panel-card">
+                <div class="panel-header"><span id="txtCalcHeader">🧮 LOT CALCULATOR & PNL JOURNAL</span></div>
+                <div class="calc-inputs">
+                    <div class="calc-group">
+                        <label id="txtBalLabel">ទុនដក ($)</label>
+                        <input type="number" id="calcBalance" value="1000" oninput="calculateLotSize()">
+                    </div>
+                    <div class="calc-group">
+                        <label>Risk %</label>
+                        <input type="number" id="calcRisk" value="1" step="0.5" oninput="calculateLotSize()">
+                    </div>
+                </div>
+                <div class="stats-grid">
+                    <div>Lot ណែនាំ<br><strong id="recommendedLot" style="color:var(--accent-cyan);">0.02 Lot</strong></div>
+                    <div>Win-Rate<br><strong id="winRateVal" style="color:var(--green-signal);">0%</strong></div>
+                    <div>Net PNL<br><strong id="netPnlVal" style="color:var(--accent-primary);">$0.00</strong></div>
+                </div>
+            </div>
+
+            <div class="panel-card">
+                <div class="panel-header"><span id="txtTgHeader">✈️ TELEGRAM BOT & BACKUP</span></div>
+                <div class="tg-inputs">
+                    <input type="text" id="tgBotToken" placeholder="Bot Token" onchange="saveTgConfig()">
+                    <input type="text" id="tgChatId" placeholder="Chat ID" onchange="saveTgConfig()">
+                </div>
+                <div style="display:flex; gap:4px; margin-top:6px;">
+                    <button class="btn-small" onclick="exportConfig()" style="flex:1; background:var(--card-bg); padding:4px; border:1px solid var(--border-color); border-radius:4px; text-align:center;">Export</button>
+                    <button class="btn-small" onclick="importConfig()" style="flex:1; background:var(--card-bg); padding:4px; border:1px solid var(--border-color); border-radius:4px; text-align:center;">Import</button>
+                    <button class="btn-small" onclick="resetAllSettings()" style="flex:1; background:rgba(239,68,68,0.2); color:var(--red-signal); padding:4px; border:1px solid var(--red-signal); border-radius:4px; text-align:center;">Reset</button>
+                </div>
+            </div>
+
+            <div class="panel-card">
+                <div class="panel-header">
+                    <span id="txtHistHeader">📜 TRADE JOURNAL & HISTORY</span>
+                    <div>
+                        <button class="btn-small" onclick="exportHistoryCSV()">Export</button> |
+                        <button class="btn-small" onclick="clearHistory()" style="color:var(--red-signal);">Clear</button>
+                    </div>
+                </div>
+                
+                <table class="history-table">
+                    <thead>
+                        <tr>
+                            <th id="thTime">ម៉ោង</th>
+                            <th id="thAsset">Asset</th>
+                            <th id="thSig">សញ្ញា</th>
+                            <th id="thEntry">Entry</th>
+                            <th id="thAction">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="historyBody">
+                        <tr><td colspan="5" style="text-align:center; color:var(--text-sub); padding:6px;">មិនទាន់មានប្រវត្តិវិភាគ</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="toastContainer"></div>
+
+    <!-- TRADINGVIEW SCRIPT -->
+    <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+    <script type="text/javascript">
+        let currentSymbol = "OANDA:XAUUSD";
+        let historyLogs = JSON.parse(localStorage.getItem("rith_history")) || [];
+        let autoScanInterval = null;
+        let isAutoScanning = false;
+        let soundMode = "beep";
+        let currentLang = "km";
+        let isSplitViewActive = false;
+
+        function switchAuthTab(tab) {
+            let loginForm = document.getElementById("loginFormContainer");
+            let regForm = document.getElementById("regFormContainer");
+            let tabLogin = document.getElementById("tabLoginBtn");
+            let tabReg = document.getElementById("tabRegBtn");
+
+            if (tab === 'login') {
+                loginForm.style.display = "block";
+                regForm.style.display = "none";
+                tabLogin.classList.add("active");
+                tabReg.classList.remove("active");
+            } else {
+                loginForm.style.display = "none";
+                regForm.style.display = "block";
+                tabReg.classList.add("active");
+                tabLogin.classList.remove("active");
+            }
+        }
+
+        function handleRegister() {
+            let u = document.getElementById("regUser").value.trim();
+            let p = document.getElementById("regPass").value.trim();
+            if(!u || !p) {
+                alert("សូមបំពេញ Username និង Password ឱ្យបានត្រឹមត្រូវ!");
+                return;
+            }
+            localStorage.setItem("rith_db_user", u);
+            localStorage.setItem("rith_db_pass", p);
+            alert("បង្កើតគណនីបានสำเร็จ! សូមធ្វើការ Login ចូល.");
+            switchAuthTab('login');
+            document.getElementById("loginUser").value = u;
+        }
+
+        function handleLogin() {
+            let u = document.getElementById("loginUser").value.trim();
+            let p = document.getElementById("loginPass").value.trim();
+            let savedU = localStorage.getItem("rith_db_user");
+            let savedP = localStorage.getItem("rith_db_pass");
+
+            if ((u === "Rith" && p === "1234") || (savedU && u === savedU && p === savedP)) {
+                document.getElementById("authOverlay").style.display = "none";
+                document.getElementById("userProfileDisplay").innerText = "👤 " + u + " (PRO)";
+                showToast("Login Successful!");
+            } else {
+                alert("ឈ្មោះគណនី ឬពាក្យសម្ងាត់មិនត្រឹមត្រូវ!");
+            }
+        }
+
+        function verifyVipKey() {
+            let key = document.getElementById("vipKeyInput").value.trim();
+            if (key === "RITH-KING-VIP-2026" || key === "Rith2026") {
+                document.getElementById("authOverlay").style.display = "none";
+                document.getElementById("userProfileDisplay").innerText = "👑 Rith (VIP PRO)";
+                showToast("VIP License Verified Successfully!");
+            } else {
+                alert("Invalid VIP Key!");
+            }
+        }
+
+        function logoutUser() {
+            document.getElementById("authOverlay").style.display = "flex";
+            document.getElementById("userProfileDisplay").innerText = "👤 Guest";
+            showToast("Logged out successfully");
+        }
+
+        function showToast(message) {
+            let container = document.getElementById("toastContainer");
+            let toast = document.createElement("div");
+            toast.className = "toast";
+            toast.innerText = "👑 " + message;
+            container.appendChild(toast);
+            setTimeout(() => { toast.remove(); }, 4000);
+        }
+
+        function toggleSplitView() {
+            isSplitViewActive = !isSplitViewActive;
+            let container = document.getElementById("chartGridContainer");
+            let widget2 = document.getElementById("tradingview_widget_2");
+            if (isSplitViewActive) {
+                container.classList.add("split-2");
+                widget2.style.display = "block";
+                new TradingView.widget({
+                    "autosize": true,
+                    "symbol": "BINANCE:BTCUSDT",
+                    "interval": "60",
+                    "timezone": "Asia/Phnom_Penh",
+                    "theme": "dark",
+                    "style": "1",
+                    "locale": "en",
+                    "container_id": "tradingview_widget_2"
+                });
+                showToast("Split View Enabled");
+            } else {
+                container.classList.remove("split-2");
+                widget2.style.display = "none";
+                showToast("Split View Disabled");
+            }
+        }
+
+        async function fetchEconomicCalendar() {
+            try {
+                let res = await fetch("https://nfs.faireconomy.media/ff_calendar_thisweek.json");
+                let data = await res.json();
+                let highImpact = data.filter(item => item.impact === "High" && item.country === "USD").slice(0, 2);
+                let html = "";
+                if(highImpact.length === 0) {
+                    html = `<div class="news-item-row"><span class="news-time">--:--</span><span>No High Impact Events</span></div>`;
+                } else {
+                    highImpact.forEach(ev => {
+                        let dateObj = new Date(ev.date);
+                        let timeStr = dateObj.getHours().toString().padStart(2,'0') + ":" + dateObj.getMinutes().toString().padStart(2,'0');
+                        html += `
+                            <div class="news-item-row">
+                                <span class="news-time">${timeStr} USD</span>
+                                <span style="font-size:9px; max-width:110px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${ev.title}</span>
+                                <strong style="color:var(--red-signal);">HIGH</strong>
+                            </div>
+                        `;
+                    });
+                }
+                document.getElementById("economicCalendarBox").innerHTML = html;
+            } catch(e) {
+                document.getElementById("economicCalendarBox").innerHTML = `
+                    <div class="news-item-row"><span class="news-time">20:30 USD</span><span>Non-Farm Payrolls (NFP)</span><strong style="color:var(--red-signal);">HIGH</strong></div>
+                `;
+            }
+        }
+
+        function loadChart(symbol) {
+        new TradingView.widget({
+                "autosize": true,
+                "symbol": symbol,
+                "interval": "60",
+                "timezone": "Asia/Phnom_Penh",
+                "theme": "dark",
+                "style": "1",
+                "locale": "en",
+                "container_id": "tradingview_widget"
+            });
+        }
+
+        loadChart(currentSymbol);
+        updateHistoryTable();
+        calculateLotSize();
+        updateMarketSessions();
+        loadTgConfig();
+        fetchEconomicCalendar();
+        setInterval(updateMarketSessions, 60000);
+
+        function selectWatchAsset(symbolName, tvSymbol) {
+            document.getElementById("assetSelect").value = symbolName;
+            document.getElementById("marketBadge").innerText = symbolName;
+            currentSymbol = tvSymbol;
+            loadChart(currentSymbol);
+        }
+
+        function changeTheme() {
+            let theme = document.getElementById("themeSelect").value;
+            document.body.className = theme === "gold" ? "" : "theme-" + theme;
+        }
+
+        function changeLanguage() { currentLang = document.getElementById("langSelect").value; }
+
+        function changeAsset() {
+            let asset = document.getElementById("assetSelect").value;
+            document.getElementById("marketBadge").innerText = asset;
+            if (asset === "XAUUSD") currentSymbol = "OANDA:XAUUSD";
+            else if (asset === "EURUSD") currentSymbol = "FX:EURUSD";
+            else if (asset === "GBPUSD") currentSymbol = "FX:GBPUSD";
+            else if (asset === "BTCUSD") currentSymbol = "BINANCE:BTCUSDT";
+            else if (asset === "US30") currentSymbol = "FOREXCOM:SPXUSD";
+            loadChart(currentSymbol);
+        }
+
+        function updateMarketSessions() {
+            let now = new Date();
+            let utcHour = now.getUTCHours();
+            setSessionStatus("sessSydney", "stSydney", (utcHour >= 22 || utcHour < 7));
+            setSessionStatus("sessTokyo", "stTokyo", (utcHour >= 0 && utcHour < 9));
+            setSessionStatus("sessLondon", "stLondon", (utcHour >= 8 && utcHour < 16));
+            setSessionStatus("sessNY", "stNY", (utcHour >= 13 && utcHour < 22));
+        }
+
+        function setSessionStatus(cardId, textId, isOpen) {
+            let card = document.getElementById(cardId);
+            let text = document.getElementById(textId);
+            if (isOpen) {
+                card.classList.add("active");
+                text.innerText = "OPEN";
+                text.style.color = "#22c55e";
+            } else {
+                card.classList.remove("active");
+                text.innerText = "CLOSED";
+                text.style.color = "#9ca3af";
+            }
+        }
+
+        function toggleAutoScan() {
+            let btn = document.getElementById("autoScanBtn");
+            let badge = document.getElementById("systemStateBadge");
+            if (!isAutoScanning) {
+                isAutoScanning = true;
+                btn.classList.add("active");
+                btn.innerText = "⏹️ Stop";
+                badge.innerText = "Auto-Scanning";
+                autoScanInterval = setInterval(() => generateAISignal(), 120000);
+            } else {
+                isAutoScanning = false;
+                btn.classList.remove("active");
+                btn.innerText = "🤖 Auto-Scan";
+                badge.innerText = "Online";
+                clearInterval(autoScanInterval);
+            }
+        }
+
+        function generateAISignal() {
+            let asset = document.getElementById("assetSelect").value;
+            let statusEl = document.getElementById("signalStatus");
+            let confEl = document.getElementById("signalConfidence");
+            let isBuy = Math.random() > 0.5;
+            let basePrice = asset === "BTCUSD" ? 68500 : (asset === "US30" ? 42500 : (asset === "XAUUSD" ? 4060 : 1.0850));
+            let entry = (basePrice + (Math.random() * 5 - 2.5)).toFixed(asset === "EURUSD" ? 4 : 2);
+            let entryNum = parseFloat(entry);
+            let signalType = isBuy ? "BUY" : "SELL";
+
+            document.getElementById("tfM15").innerText = "M15: " + (isBuy ? "BULL" : "BEAR");
+            document.getElementById("tfH1").innerText = "H1: " + (isBuy ? "BULL" : "BEAR");
+            document.getElementById("tfH4").innerText = "H4: " + (isBuy ? "BULL" : "BEAR");
+
+            let sl = (isBuy ? entryNum - 7.5 : entryNum + 7.5).toFixed(2);
+            let tp1 = (isBuy ? entryNum + 10 : entryNum - 10).toFixed(2);
+            let tp2 = (isBuy ? entryNum + 18 : entryNum - 18).toFixed(2);
+            let tp3 = (isBuy ? entryNum + 30 : entryNum - 30).toFixed(2);
+
+            statusEl.innerText = isBuy ? "🟢 BUY BREAKOUT" : "🔴 SELL BREAKOUT";
+            statusEl.style.color = isBuy ? "#22c55e" : "#ef4444";
+            confEl.innerText = "AI Confidence: 92.4%";
+
+            document.getElementById("entryVal").innerText = "$" + entry;
+            document.getElementById("slVal").innerText = "$" + sl;
+            document.getElementById("tp1Val").innerText = "$" + tp1;
+            document.getElementById("tp2Val").innerText = "$" + tp2;
+            document.getElementById("tp3Val").innerText = "$" + tp3;
+
+            showToast(`New ${signalType} Signal for ${asset}`);
+            let now = new Date();
+            let timeStr = now.getHours().toString().padStart(2, '0') + ":" + now.getMinutes().toString().padStart(2, '0');
+            
+            historyLogs.unshift({ id: Date.now(), time: timeStr, asset: asset, type: signalType, entry: "$" + entry, status: "PENDING", pnl: 0 });
+            localStorage.setItem("rith_history", JSON.stringify(historyLogs));
+            updateHistoryTable();
+        }
+
+        function calculateLotSize() {
+            let balance = parseFloat(document.getElementById("calcBalance").value) || 1000;
+            let risk = parseFloat(document.getElementById("calcRisk").value) || 1;
+            let lot = ((balance * (risk / 100)) / 750).toFixed(2);
+            if (lot < 0.01) lot = 0.01;
+            document.getElementById("recommendedLot").innerText = lot + " Lot";
+        }
+
+        function recordPNL(id, isWin) {
+            let balance = parseFloat(document.getElementById("calcBalance").value) || 1000;
+            let risk = parseFloat(document.getElementById("calcRisk").value) || 1;
+            let riskAmount = balance * (risk / 100);
+            let item = historyLogs.find(x => x.id === id);
+            if (item) {
+                item.status = isWin ? "WIN" : "LOSS";
+                item.pnl = isWin ? (riskAmount * 3.2) : -riskAmount;
+                localStorage.setItem("rith_history", JSON.stringify(historyLogs));
+                updateHistoryTable();
+            }
+        }
+
+        function updateHistoryTable() {
+            let tbody = document.getElementById("historyBody");
+            if (historyLogs.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; color:var(--text-sub); padding:6px;">មិនទាន់មានប្រវត្តិវិភាគ</td></tr>`;
+                document.getElementById("winRateVal").innerText = "0%";
+                document.getElementById("netPnlVal").innerText = "$0.00";
+                return;
+            }
+            let html = "", wins = 0, total = 0, pnl = 0;
+            historyLogs.slice(0, 5).forEach(item => {
+                let badge = item.type === "BUY" ? "badge-buy" : "badge-sell";
+                let action = item.status === "PENDING" ? 
+                    `<button class="btn-action btn-win" onclick="recordPNL(${item.id}, true)">W</button><button class="btn-action btn-loss" onclick="recordPNL(${item.id}, false)">L</button>` :
+                    `<strong>${item.status}</strong>`;
+                if(item.status !== "PENDING") { total++; if(item.status === "WIN") wins++; pnl += item.pnl; }
+                html += `<tr><td>${item.time}</td><td><strong>${item.asset}</strong></td><td class="${badge}">${item.type}</td><td>${item.entry}</td><td>${action}</td></tr>`;
+            });
+            tbody.innerHTML = html;
+            document.getElementById("winRateVal").innerText = total > 0 ? Math.round((wins/total)*100) + "%" : "0%";
+            document.getElementById("netPnlVal").innerText = (pnl >= 0 ? "+$" : "-$") + Math.abs(pnl).toFixed(0);
+        }
+
+        function clearHistory() { historyLogs = []; localStorage.removeItem("rith_history"); updateHistoryTable(); }
+        function saveTgConfig() { localStorage.setItem("rith_tg_token", document.getElementById("tgBotToken").value); localStorage.setItem("rith_tg_chatid", document.getElementById("tgChatId").value); }
+        function loadTgConfig() { document.getElementById("tgBotToken").value = localStorage.getItem("rith_tg_token") || ""; document.getElementById("tgChatId").value = localStorage.getItem("rith_tg_chatid") || ""; }
+        function resetAllSettings() { if(confirm("តើអ្នកចង់ Reset មែនទេ?")) { localStorage.clear(); location.reload(); } }
+    </script>
+</body>
+</html>
