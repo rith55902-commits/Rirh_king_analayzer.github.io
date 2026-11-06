@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RITH KING ANALYZER PRO</title>
+    <title>RITH KING ANALYZER PRO - ULTIMATE EDITION</title>
     <style>
         :root {
             --bg-dark: #090d16;
@@ -32,6 +32,77 @@
             display: flex;
             flex-direction: column;
             transition: all 0.3s ease;
+        }
+
+        #authOverlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(9, 13, 22, 0.96);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .auth-box {
+            background: var(--panel-bg);
+            border: 1px solid var(--border-color);
+            padding: 30px 25px;
+            border-radius: 16px;
+            width: 380px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.7);
+        }
+        .auth-box h2 { color: var(--accent-primary); font-size: 22px; margin-bottom: 6px; }
+        .auth-box p { font-size: 12px; color: var(--text-sub); margin-bottom: 20px; }
+
+        .auth-btn {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: 0.2s;
+        }
+
+        .btn-google { background-color: #ffffff; color: #1f2937; border-color: #d1d5db; }
+        .btn-google:hover { background-color: #f3f4f6; }
+
+        .btn-facebook { background-color: #1877f2; color: #ffffff; border-color: #1877f2; }
+        .btn-facebook:hover { background-color: #166fe5; }
+
+        .btn-apple { background-color: #000000; color: #ffffff; border-color: #000000; }
+        .btn-apple:hover { background-color: #111827; }
+
+        .vip-key-box { margin-top: 15px; border-top: 1px solid var(--border-color); padding-top: 15px; }
+        .vip-key-box input {
+            width: 100%;
+            background: #0d1117;
+            border: 1px solid var(--accent-primary);
+            color: var(--text-main);
+            padding: 8px;
+            border-radius: 6px;
+            font-size: 11px;
+            text-align: center;
+            margin-bottom: 8px;
+        }
+        .btn-vip {
+            width: 100%;
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: #000;
+            font-weight: bold;
+            padding: 8px;
+            border: none;
+            border-radius: 6px;
+            font-size: 11px;
+            cursor: pointer;
+            text-transform: uppercase;
         }
 
         .top-navbar {
@@ -130,7 +201,8 @@
             cursor: pointer;
         }
 
-        .chart-container { flex: 1; width: 100%; height: 100%; }
+        .chart-container { flex: 1; width: 100%; height: 100%; display: grid; grid-template-columns: 1fr; }
+        .chart-container.split-2 { grid-template-columns: 1fr 1fr; }
 
         .side-pane {
             background-color: var(--panel-bg);
@@ -331,9 +403,60 @@
         .btn-win { background-color: rgba(34, 197, 94, 0.2); color: var(--green-signal); border: 1px solid var(--green-signal); }
         .btn-loss { background-color: rgba(239, 68, 68, 0.2); color: var(--red-signal); border: 1px solid var(--red-signal); }
         .btn-small { background: none; border: none; color: var(--accent-cyan); font-size: 9px; cursor: pointer; text-decoration: underline; }
+
+        #toastContainer {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .toast {
+            background: var(--panel-bg);
+            border: 1px solid var(--accent-primary);
+            color: var(--text-main);
+            padding: 12px 18px;
+            border-radius: 8px;
+            font-size: 11px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            animation: slideIn 0.3s ease;
+        }
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
     </style>
 </head>
 <body>
+
+    <div id="authOverlay">
+        <div class="auth-box">
+            <h2>👑 RITH KING PRO</h2>
+            <p>សូមចូលប្រើប្រាស់ប្រព័ន្ធវិភាគទីផ្សារ</p>
+            
+            <button class="auth-btn btn-google" onclick="loginWith('Google')">
+                <svg width="16" height="16" viewBox="0 0 24 24"><path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.665-5.17 3.665-9.17z"/><path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.13 0-5.78-2.11-6.73-4.96H1.18v3.15C3.15 21.32 7.23 24 12 24z"/><path fill="#FBBC05" d="M5.27 14.24c-.25-.72-.38-1.49-.38-2.24s.13-1.52.38-2.24V6.61H1.18C.43 8.12 0 9.99 0 12s.43 3.88 1.18 5.39l4.09-3.15z"/><path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.23 0 3.15 2.68 1.18 6.61l4.09 3.15c.95-2.85 3.6-4.96 6.73-4.96z"/></svg>
+                បន្តជាមួយ Gmail (Google)
+            </button>
+
+            <button class="auth-btn btn-facebook" onclick="loginWith('Facebook')">
+                <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                បន្តជាមួយ Facebook
+            </button>
+
+            <button class="auth-btn btn-apple" onclick="loginWith('Apple')">
+                <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 5.75c.62-.75 1.04-1.79.93-2.83-.92.04-2.03.62-2.69 1.37-.58.65-1.09 1.71-.95 2.74 1.03.08 2.09-.53 2.71-1.28z"/></svg>
+                បន្តជាមួយ Apple ID
+            </button>
+
+            <div class="vip-key-box">
+                <input type="text" id="vipKeyInput" placeholder="បញ្ចូល VIP License Key (Optional)">
+                <button class="btn-vip" onclick="verifyVipKey()">ផ្ទៀងផ្ទាត់ VIP Key</button>
+            </div>
+        </div>
+    </div>
 
     <div class="top-navbar">
         <div class="brand-logo">
@@ -341,7 +464,7 @@
             <h1 id="txtBrand">RITH KING ANALYZER PRO</h1>
         </div>
         <div class="system-status">
-            <span id="userProfileDisplay" style="color:var(--accent-primary); font-weight:bold; font-size:11px;">👤 Rith Admin</span>
+            <span id="userProfileDisplay" style="color:var(--accent-primary); font-weight:bold; font-size:11px;">👤 Rith Admin (FREE)</span>
             <select class="nav-select" id="soundSelect" onchange="changeSoundMode()">
                 <option value="beep">🔊 Beep Sound</option>
                 <option value="chime">🔔 Chime</option>
@@ -357,6 +480,7 @@
                 <option value="matrix">🟢 Matrix</option>
                 <option value="purple">🟣 Purple</option>
             </select>
+            <button class="nav-select" onclick="toggleSplitView()" style="background:var(--accent-primary); color:#000; font-weight:bold;">🪟 Split View</button>
             <span class="status-badge" id="systemStateBadge">Online</span>
         </div>
     </div>
@@ -370,106 +494,4 @@
                     <div class="watch-top"><span>XAUUSD</span> <span class="watch-chg chg-pos" id="wChg_XAUUSD">+0.45%</span></div>
                     <div class="watch-price" id="wPrice_XAUUSD">$4,062.50</div>
                 </div>
-                <div class="watch-item" onclick="selectWatchAsset('EURUSD', 'FX:EURUSD')">
-                    <div class="watch-top"><span>EURUSD</span> <span class="watch-chg chg-neg" id="wChg_EURUSD">-0.12%</span></div>
-                    <div class="watch-price" id="wPrice_EURUSD">1.0842</div>
-                </div>
-                <div class="watch-item" onclick="selectWatchAsset('GBPUSD', 'FX:GBPUSD')">
-                    <div class="watch-top"><span>GBPUSD</span> <span class="watch-chg chg-pos" id="wChg_GBPUSD">+0.18%</span></div>
-                    <div class="watch-price" id="wPrice_GBPUSD">1.2945</div>
-                </div>
-                <div class="watch-item" onclick="selectWatchAsset('BTCUSD', 'BINANCE:BTCUSDT')">
-                    <div class="watch-top"><span>BTCUSD</span> <span class="watch-chg chg-pos" id="wChg_BTCUSD">+1.85%</span></div>
-                    <div class="watch-price" id="wPrice_BTCUSD">$68,520.00</div>
-                </div>
-                <div class="watch-item" onclick="selectWatchAsset('US30', 'FOREXCOM:SPXUSD')">
-                    <div class="watch-top"><span>US30</span> <span class="watch-chg chg-pos" id="wChg_US30">+0.32%</span></div>
-                    <div class="watch-price" id="wPrice_US30">$42,540.10</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="chart-pane">
-            <div class="chart-toolbar">
-                <select class="asset-select" id="assetSelect" onchange="changeAsset()">
-                    <option value="XAUUSD">🥇 XAUUSD (Gold Spot)</option>
-                    <option value="EURUSD">💶 EURUSD (Euro / USD)</option>
-                    <option value="GBPUSD">💷 GBPUSD (Pound / USD)</option>
-                    <option value="BTCUSD">₿ BTCUSD (Bitcoin)</option>
-                    <option value="US30">📈 US30 (Dow Jones)</option>
-                </select>
-                <span id="txtFeed" style="color: var(--text-sub); font-size: 10px;">Institutional Feed | [Space] to Scan</span>
-            </div>
-            <div class="chart-container">
-                <div id="tradingview_widget" style="height:100%;width:100%;"></div>
-            </div>
-        </div>
-
-        <div class="side-pane">
-            
-            <div class="panel-card">
-                <div class="panel-header"><span id="txtSupportHeader">💬 SUPPORT & CONTACT</span></div>
-                <div class="support-box">
-                    <span id="txtAdmin">Admin Telegram:</span>
-                    <a href="https://t.me/Rith_putuy" target="_blank">@Rith_putuy (+855966251855)</a>
-                </div>
-            </div>
-
-            <div class="panel-card">
-                <div class="panel-header"><span id="txtNewsHeader">🚨 HIGH-IMPACT NEWS FILTER</span></div>
-                <div class="news-live-box">
-                    <div class="news-item-row">
-                        <span class="news-time">20:30 USD</span>
-                        <span>Non-Farm Payrolls (NFP)</span>
-                        <strong style="color:var(--red-signal);">HIGH IMPACT</strong>
-                    </div>
-                    <div class="news-item-row">
-                        <span class="news-time">22:00 USD</span>
-                        <span>ISM Services PMI</span>
-                        <strong style="color:var(--accent-primary);">MED</strong>
-                    </div>
-                </div>
-            </div>
-
-            <div class="panel-card">
-                <div class="panel-header"><span id="txtSessionHeader">🌐 MARKET SESSIONS</span></div>
-                <div class="sessions-grid">
-                    <div class="session-item" id="sessSydney"><div class="session-name">Sydney</div><div class="session-status" id="stSydney">--</div></div>
-                    <div class="session-item" id="sessTokyo"><div class="session-name">Tokyo</div><div class="session-status" id="stTokyo">--</div></div>
-                    <div class="session-item" id="sessLondon"><div class="session-name">London</div><div class="session-status" id="stLondon">--</div></div>
-                    <div class="session-item" id="sessNY"><div class="session-name">New York</div><div class="session-status" id="stNY">--</div></div>
-                </div>
-            </div>
-
-            <div class="panel-card">
-                <div class="panel-header">
-                    <span id="txtAiHeader">⚡ AI SIGNAL & TREND METER</span>
-                    <span id="marketBadge" style="font-size:10px; color:var(--accent-cyan);">XAUUSD</span>
-                </div>
-
-                <div class="confluence-grid">
-                    <div class="conf-box" id="tfM15">M15: --</div>
-                    <div class="conf-box" id="tfH1">H1: --</div>
-                    <div class="conf-box" id="tfH4">H4: --</div>
-                </div>
-
-                <div class="signal-box">
-                    <div class="signal-title" id="signalStatus">ត្រៀមវិភាគ...</div>
-                    <div class="signal-confidence" id="signalConfidence">ចុចវិភាគ ឬបើក Auto-Scan 24/7</div>
-                </div>
-
-                <div class="metrics-grid">
-                    <div class="metric-item">
-                        <div class="metric-label" id="txtEntry">Entry Price</div>
-                        <div class="metric-value" id="entryVal">--</div>
-                    </div>
-                    <div class="metric-item sl">
-                        <div class="metric-label" id="txtSL">Stop Loss (SL)</div>
-                        <div class="metric-value" id="slVal" style="color:var(--red-signal);">--</div>
-                    </div>
-                </div>
-
-                <div class="tp-list">
-                    <div class="tp-item"><span>TP1</span><strong id="tp1Val" style="color:var(--green-signal);">--</strong></div>
-                    <div class="tp-item"><span>TP2</span><strong id="tp2Val" style="color:var(--green-signal);">--</strong></div>
-                    <div class="tp-item"><span>TP3</spa
+                <div class="watc
