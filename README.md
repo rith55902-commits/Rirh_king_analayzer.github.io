@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RITH KING ANALYZER PRO - ULTIMATE EDITION</title>
+    <title>RITH KING ANALYZER PRO - FULLSCREEN EDITION</title>
     <style>
         :root {
             --bg-dark: #090d16;
@@ -27,17 +27,17 @@
         body {
             background-color: var(--bg-dark);
             color: var(--text-main);
+            width: 100vw;
             height: 100vh;
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            transition: all 0.3s ease;
         }
 
         #authOverlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(9, 13, 22, 0.96);
+            background: rgba(9, 13, 22, 0.98);
             z-index: 9999;
             display: flex;
             justify-content: center;
@@ -46,13 +46,13 @@
         .auth-box {
             background: var(--panel-bg);
             border: 1px solid var(--border-color);
-            padding: 25px 20px;
+            padding: 25px;
             border-radius: 16px;
             width: 360px;
             text-align: center;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.7);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.8);
         }
-        .auth-box h2 { color: var(--accent-primary); font-size: 20px; margin-bottom: 4px; }
+        .auth-box h2 { color: var(--accent-primary); font-size: 20px; margin-bottom: 5px; }
         .auth-box p { font-size: 11px; color: var(--text-sub); margin-bottom: 15px; }
 
         .auth-tabs { display: flex; gap: 5px; margin-bottom: 15px; background: #0d1117; padding: 3px; border-radius: 6px; }
@@ -95,6 +95,7 @@
             justify-content: space-between;
             align-items: center;
             height: 60px;
+            flex-shrink: 0;
         }
 
         .brand-logo { display: flex; align-items: center; gap: 10px; }
@@ -122,13 +123,15 @@
 
         .terminal-container {
             display: grid;
-            grid-template-columns: 22% 36% 42%;
-            height: calc(100vh - 60px);
+            grid-template-columns: 22% 38% 40%;
+            flex: 1;
             width: 100%;
+            height: calc(100vh - 60px);
+            overflow: hidden;
         }
 
         @media(max-width: 1200px) {
-            .terminal-container { grid-template-columns: 40% 60%; }
+            .terminal-container { grid-template-columns: 35% 65%; }
             .watchlist-pane { display: none; }
         }
 
@@ -162,6 +165,7 @@
             display: flex;
             flex-direction: column;
             background-color: #0d1117;
+            height: 100%;
         }
 
         .chart-toolbar {
@@ -171,6 +175,7 @@
             gap: 12px;
             align-items: center;
             border-bottom: 1px solid var(--border-color);
+            flex-shrink: 0;
         }
 
         .asset-select {
@@ -193,6 +198,7 @@
             display: flex;
             flex-direction: column;
             gap: 8px;
+            height: 100%;
         }
 
         .panel-card {
@@ -385,6 +391,7 @@
 </head>
 <body>
 
+    <!-- LOGIN & REGISTER OVERLAY -->
     <div id="authOverlay">
         <div class="auth-box">
             <h2>👑 RITH KING PRO</h2>
@@ -423,11 +430,12 @@
 
             <div class="vip-key-box">
                 <input type="text" id="vipKeyInput" placeholder="ឬបញ្ចូល VIP License Key">
-                <button class="btn-vip" onclick="verifyVipKey()">ផ្ទៀងផ្ទាត់ VIP Key</button>
+                <button class="btn-vip" onclick="verifyVipKey()">ផ្ទៀងផ្ទាត់ VIP KEY</button>
             </div>
         </div>
     </div>
 
+    <!-- NAVBAR -->
     <div class="top-navbar">
         <div class="brand-logo">
             <span>👑</span>
@@ -456,8 +464,10 @@
         </div>
     </div>
 
+    <!-- MAIN TERMINAL CONTENT -->
     <div class="terminal-container">
         
+        <!-- WATCHLIST -->
         <div class="watchlist-pane">
             <div class="panel-header"><span id="txtWatchHeader">📊 LIVE WATCHLIST</span></div>
             <div id="watchlistContainer">
@@ -467,13 +477,7 @@
                 </div>
                 <div class="watch-item" onclick="selectWatchAsset('EURUSD', 'FX:EURUSD')">
                     <div class="watch-top"><span>EURUSD</span> <span class="watch-chg chg-neg" id="wChg_EURUSD">-0.12%</span></div>
-                    <div class="watch-price" id="wPrice_EURUSD">1.0842</div>
-                </div>
-                <div class="watch-item" onclick="selectWatchAsset('GBPUSD', 'FX:GBPUSD')">
-                    <div class="watch-top"><span>GBPUSD</span> <span class="watch-chg chg
-<div class="watch-top"><span>EURUSD</span> <span class="watch-chg chg-neg" id="wChg_EURUSD">-0.12%</span></div>
-                    <div class="watch-price" id="wPrice_EURUSD">1.0842</div>
-                </div>
+</div>
                 <div class="watch-item" onclick="selectWatchAsset('GBPUSD', 'FX:GBPUSD')">
                     <div class="watch-top"><span>GBPUSD</span> <span class="watch-chg chg-pos" id="wChg_GBPUSD">+0.18%</span></div>
                     <div class="watch-price" id="wPrice_GBPUSD">1.2945</div>
@@ -611,7 +615,7 @@
 
             <div class="panel-card">
                 <div class="panel-header">
-                    <span id="txtHistHeader">📜 TRADE JOURNAL & HISTORY</span>
+                 <span id="txtHistHeader">📜 TRADE JOURNAL & HISTORY</span>
                     <div>
                         <button class="btn-small" onclick="exportHistoryCSV()">Export</button> |
                         <button class="btn-small" onclick="clearHistory()" style="color:var(--red-signal);">Clear</button>
@@ -777,9 +781,8 @@
                 `;
             }
         }
-
         function loadChart(symbol) {
-        new TradingView.widget({
+            new TradingView.widget({
                 "autosize": true,
                 "symbol": symbol,
                 "interval": "60",
